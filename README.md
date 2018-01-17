@@ -1,1 +1,1 @@
-# cook-assistant-client-2
+# cook-assistant-client-v2
