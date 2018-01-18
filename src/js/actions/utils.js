@@ -2,8 +2,8 @@ import _ from 'lodash'
 
 function createActions (actionTypes) {
   return _.mapValues(actionTypes, (actionType) => {
-    return function (payload) {
-      return { actionType, payload }
+    return function (payload, history) {
+      return { type: actionType, payload, history }
     }
   })
 }

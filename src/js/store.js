@@ -24,5 +24,6 @@ export default function configureStore() {
   //   })
   // })
 
+  window.store = store
   return store
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, withRouter } from 'react-router-dom'
 
 class PrivateRoute extends Component {
   constructor(props) {
@@ -26,8 +26,8 @@ class PrivateRoute extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   state => ({
     auth: state.auth
   })
-)(PrivateRoute)
+)(PrivateRoute))
