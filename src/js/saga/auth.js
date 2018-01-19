@@ -9,7 +9,7 @@ const onSignIn = function * (action) {
   try {
     const { token, id } = yield call(signIn, username, password)
     yield put(actions.AUTHENTICATE_SUCCESS({ id, username, token }))
-    history.push('/home')
+    history.push('/recipes')
   } catch (error) {
     yield put(actions.AUTHENTICATE_FAILURE({ username }))
   } finally {
@@ -24,7 +24,7 @@ const onSignUp = function * (action) {
   try {
     const { token, id } = yield call(signUp, username, password)
     yield put(actions.AUTHENTICATE_SUCCESS({ id, username, token }))
-    history.push('/home')
+    history.push('/recipes')
   } catch (error) {
     yield put(actions.AUTHENTICATE_FAILURE({ username }))
   } finally {

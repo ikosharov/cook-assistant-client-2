@@ -1,4 +1,5 @@
 import { actionTypes } from '../actions/auth'
+import { createSelector } from "reselect"
 
 const initialState = {
   id: null,
@@ -23,3 +24,5 @@ export default function auth(state = initialState, action) {
       return state
   }
 }
+
+export const getAuthState = state => state.auth
