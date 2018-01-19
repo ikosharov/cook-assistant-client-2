@@ -1,9 +1,8 @@
 import { createActions } from './utils'
 
 const actionTypes = {
-  FETCH_RECIPES: 'FETCH_RECIPES',
-  FETCH_RECIPES_SUCCESS: 'FETCH_RECIPES_SUCCESS',
-  FETCH_RECIPES_FAILURE: 'FETCH_RECIPES_FAILURE'
+  FETCH_STARTED: 'FETCH_STARTED',
+  FETCH_FINISHED: 'FETCH_FINISHED'
 }
 
 const actions = createActions(actionTypes)

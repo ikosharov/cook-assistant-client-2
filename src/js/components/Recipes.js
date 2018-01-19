@@ -18,7 +18,7 @@ class Recipes extends Component {
 
   handleSignOut() {
     const { history, SIGN_OUT } = this.props
-    SIGN_OUT(null, history)
+    SIGN_OUT({ history })
   }
 
   render() {

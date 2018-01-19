@@ -7,7 +7,7 @@ const initialState = []
 
 export default function recipes(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.FETCH_RECIPES_RESPONSE:
+    case actionTypes.FETCH_RECIPES_SUCCESS:
       return action.payload
 
     default:

@@ -27,7 +27,7 @@ class SignUp extends Component {
   handleSignIn() {
     const { SIGN_UP, history } = this.props
     const { username, password } = this.state
-    SIGN_UP({ username, password }, history)
+    SIGN_UP({ payload: { username, password }, history })
   }
 
   render() {

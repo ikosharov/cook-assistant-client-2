@@ -1,21 +1,25 @@
 import { actionTypes } from '../actions/auth'
-import { createSelector } from "reselect"
 
 const initialState = {
   id: null,
   username: null,
   token: null,
-  authenticateFailed: false
+  authError: null
 }
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.AUTHENTICATE_SUCCESS:
-      return { ...action.payload, authenticateFailed: false }
+    case actionTypes.SIGN_IN_SUCCESS:
+      return { ...action.payload, authError: initialState.authError }
 
-    case actionTypes.AUTHENTICATE_FAILURE:
-      const { username } = action.payload
-      return { ...initialState, username, authenticateFailed: true }
+    case actionTypes.SIGN_UP_SUCCESS:
+      return { ...action.payload, authError: initialState.authError }
+
+    case actionTypes.SIGN_IN_FAILURE:
+      return { state, authError: action.error }
+
+    case actionTypes.SIGN_UP_FAILURE:
+      return { state, authError: action.error }
 
     case actionTypes.SIGN_OUT:
       return initialState

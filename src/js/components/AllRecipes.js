@@ -14,7 +14,7 @@ class AllRecipes extends Component {
   }
 
   componentDidMount() {
-    this.props.FETCH_RECIPES_REQUEST()
+    this.props.FETCH_RECIPES()
   }
 
   render() {

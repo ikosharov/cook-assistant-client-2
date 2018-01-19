@@ -1,8 +1,11 @@
 import { takeEvery, put, call, all } from 'redux-saga/effects'
-import { actions, actionTypes } from '../actions/recipes'
+import { actions as recipesActions, actionTypes } from '../actions/recipes'
+import { actions as fetchingActions } from '../actions/fetching'
 import { loadCurrentUserRecipes, loadAnyUserRecipes } from '../data/api'
 
-const onFetchRecipesRequest = function * () {
+const onFetchRecipes = function * () {
+  yield put(fetchingActions.FETCH_STARTED())
+
   try {
     const [currentUserRecipes, otherUsersRecipes] = yield all([
       call(loadCurrentUserRecipes),
@@ -10,16 +13,16 @@ const onFetchRecipesRequest = function * () {
     ])
 
     const allRecipes = [...currentUserRecipes, ...otherUsersRecipes]
-    yield put(actions.FETCH_RECIPES_RESPONSE(allRecipes))
+    yield put(recipesActions.FETCH_RECIPES_SUCCESS({ payload: allRecipes }))
   } catch (error) {
-    console.log('failed fetching users')
+    yield put(recipesActions.FETCH_RECIPES_FAILURE({ error }))
   } finally {
-    console.log('done')
+    yield put(fetchingActions.FETCH_FINISHED())
   }
 }
 
 export default function * watchRecipes () {
   yield [
-    takeEvery(actionTypes.FETCH_RECIPES_REQUEST, onFetchRecipesRequest)
+    takeEvery(actionTypes.FETCH_RECIPES, onFetchRecipes)
   ]
 }
