@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import { actionTypes } from '../actions/recipes'
 import { getAuthState } from './auth'
+import _ from 'lodash'
 
 const initialState = []
 
@@ -18,7 +19,7 @@ export const getRecipesState = state => state.recipes
 
 export const getCurrentUserRecipes = createSelector(
   getRecipesState, getAuthState,
-  (recipes, auth) => recipes.filter(recipe => recipe.userId === auth.id)
+  (recipes, auth) => _.uniqBy(recipes.filter(recipe => recipe.userId === auth.id), '_id')
 )
 
 export const getOtherUsersRecipes = createSelector(
