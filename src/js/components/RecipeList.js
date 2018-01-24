@@ -1,9 +1,10 @@
 import React from 'react'
+import RecipeSummary from './RecipeSummary'
 
 const RecipeList = ({ recipes }) => {
   const markup = recipes.map((recipe, idx) => {
     return (
-      <div key={idx}>{recipe.title}</div>
+      <RecipeSummary key={idx} {...recipe} />
     )
   })
   return (
