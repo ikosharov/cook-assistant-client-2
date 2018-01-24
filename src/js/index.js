@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import PrivateRoute from './components/PrivateRoute'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
-import Recipes from './components/Recipes'
+import Home from './components/Home'
 import { Provider } from 'react-redux'
 import configureStore from './store'
 
@@ -19,7 +19,7 @@ const App = () => {
         <Switch>
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
-          <PrivateRoute path='/recipes' component={Recipes} />
+          <PrivateRoute path='/recipes' component={Home} />
           <Redirect to='/recipes' />
         </Switch>
       </Router>

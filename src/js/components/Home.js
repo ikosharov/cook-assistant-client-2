@@ -10,7 +10,7 @@ import CookRecipe from './CookRecipe'
 import EditRecipe from './EditRecipe'
 import Loader from './Loader'
 
-class Recipes extends Component {
+class Home extends Component {
   constructor(props) {
     super(props)
 
@@ -51,4 +51,4 @@ export default connect(
   dispatch => ({
     ...bindActionCreators(authActions, dispatch)
   })
-)(Recipes)
+)(Home)
