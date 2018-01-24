@@ -8,6 +8,7 @@ import Avatar from './Avatar'
 import AllRecipes from './AllRecipes'
 import CookRecipe from './CookRecipe'
 import EditRecipe from './EditRecipe'
+import Loader from './Loader'
 
 class Recipes extends Component {
   constructor(props) {
@@ -22,19 +23,21 @@ class Recipes extends Component {
   }
 
   render() {
-    const { auth, match } = this.props
+    const { auth, match, fetching } = this.props
     const { username } = auth
 
     return (
       <div>
         <div>Welcome to Cook Assistant v2</div>
-        <Switch>
-          <Route path={match.url} exact component={AllRecipes} />
-          <Route path={`${match.url}/:recipeId/cook`} component={CookRecipe} />
-          <Route path={`${match.url}/:recipeId/edit`} component={EditRecipe} />
-          <Redirect to={match.url} />
-        </Switch>
-        <Avatar username={username} signOut={this.handleSignOut} />
+        <Loader loading={fetching}>
+          <Switch>
+            <Route path={match.url} exact component={AllRecipes} />
+            <Route path={`${match.url}/:recipeId/cook`} component={CookRecipe} />
+            <Route path={`${match.url}/:recipeId/edit`} component={EditRecipe} />
+            <Redirect to={match.url} />
+          </Switch>
+          <Avatar username={username} signOut={this.handleSignOut} />
+        </Loader>
       </div>
     )
   }
@@ -42,7 +45,8 @@ class Recipes extends Component {
 
 export default connect(
   state => ({
-    auth: state.auth
+    auth: state.auth,
+    fetching: state.fetching
   }),
   dispatch => ({
     ...bindActionCreators(authActions, dispatch)
