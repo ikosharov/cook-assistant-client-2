@@ -11,8 +11,17 @@ export default function recipes(state = initialState, action) {
     case actionTypes.FETCH_RECIPE_SUCCESS:
       return { recipe: action.payload, error: initialState.error }
 
-    case action.FETCH_RECIPE_FAILURE:
+    case actionTypes.FETCH_RECIPE_FAILURE:
       return { recipe: initialState.recipe, error: action.error }
+
+    case actionTypes.SAVE_RECIPE_SUCCESS:
+      return { recipe: action.payload, error: initialState.error }
+
+    case actionTypes.SAVE_RECIPE_FAILURE:
+      return { ...state, error: action.error }
+
+    case actionTypes.TITLE_CHANGE:
+      return { recipe: { ...state.recipe, title: action.payload }, error: initialState.error }
 
     default:
       return state

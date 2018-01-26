@@ -19,15 +19,26 @@ class EditRecipe extends Component {
   }
 
   render () {
-    const { recipe = {} } = this.props
-    return (<h3>Edit recipe - {recipe.title}</h3>)
+    const { SAVE_RECIPE, TITLE_CHANGE, match, recipe = {} } = this.props
+    const { recipeId } = match.params
+
+    return (
+      <div>
+        <h3>
+          <input type="text"
+                 name="title"
+                 value={recipe.title || ''}
+                 onChange={(e) => TITLE_CHANGE({ payload: e.target.value })} />
+        </h3>
+        <button onClick={() => SAVE_RECIPE({ payload: { recipeId, recipe } })}>Save</button>
+      </div>
+    )
   }
 }
 
 export default withRouter(connect(
   state => ({
-    recipe: getRecipe(state),
-    fetching: state.fetching
+    recipe: getRecipe(state)
   }),
   dispatch => ({
     ...bindActionCreators(recipeActions, dispatch)
