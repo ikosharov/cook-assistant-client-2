@@ -6,22 +6,25 @@ const initialState = {
   error: undefined
 }
 
-export default function recipes(state = initialState, action) {
-  switch (action.type) {
+export default function recipes(state = initialState, {type, payload, error}) {
+  switch (type) {
     case actionTypes.FETCH_RECIPE_SUCCESS:
-      return { recipe: action.payload, error: initialState.error }
+      return { recipe: payload, error: initialState.error }
 
     case actionTypes.FETCH_RECIPE_FAILURE:
-      return { recipe: initialState.recipe, error: action.error }
+      return { recipe: initialState.recipe, error }
 
     case actionTypes.SAVE_RECIPE_SUCCESS:
-      return { recipe: action.payload, error: initialState.error }
+      return { recipe: payload, error: initialState.error }
 
     case actionTypes.SAVE_RECIPE_FAILURE:
-      return { ...state, error: action.error }
+      return { ...state, error }
 
-    case actionTypes.TITLE_CHANGE:
-      return { recipe: { ...state.recipe, title: action.payload }, error: initialState.error }
+    case actionTypes.RECIPE_CHANGE:
+      const { prop, value } = payload
+      let updatedRecipe = {...state.recipe}
+      updatedRecipe[prop] = value
+      return { recipe: updatedRecipe, error: initialState.error }
 
     default:
       return state

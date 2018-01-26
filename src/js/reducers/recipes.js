@@ -8,13 +8,13 @@ const initialState = {
   error: null
 }
 
-export default function recipes(state = initialState, action) {
-  switch (action.type) {
+export default function recipes(state = initialState, {type, payload, error}) {
+  switch (type) {
     case actionTypes.FETCH_RECIPES_SUCCESS:
-      return { recipes: action.payload, error: initialState.error }
+      return { recipes: payload, error: initialState.error }
 
     case actionTypes.FETCH_RECIPES_FAILURE:
-      return { recipes: initialState.recipes, error: action.error }
+      return { recipes: initialState.recipes, error }
 
     default:
       return state

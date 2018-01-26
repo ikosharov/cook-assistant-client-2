@@ -4,22 +4,22 @@ const initialState = {
   id: null,
   username: null,
   token: null,
-  authError: null
+  error: null
 }
 
-export default function auth(state = initialState, action) {
-  switch (action.type) {
+export default function auth(state = initialState, {type, payload, error}) {
+  switch (type) {
     case actionTypes.SIGN_IN_SUCCESS:
-      return { ...action.payload, authError: initialState.authError }
+      return { ...payload, error: initialState.error }
 
     case actionTypes.SIGN_UP_SUCCESS:
-      return { ...action.payload, authError: initialState.authError }
+      return { ...payload, error: initialState.error }
 
     case actionTypes.SIGN_IN_FAILURE:
-      return { state, authError: action.error }
+      return { ...state, error }
 
     case actionTypes.SIGN_UP_FAILURE:
-      return { state, authError: action.error }
+      return { ...state, error }
 
     case actionTypes.SIGN_OUT:
       return initialState

@@ -2,8 +2,8 @@ import { actionTypes } from '../actions/fetching'
 
 const initialState = false
 
-export default function fetching(state = initialState, action) {
-  switch (action.type) {
+export default function fetching(state = initialState, {type}) {
+  switch (type) {
     case actionTypes.FETCH_STARTED:
       return true
 
