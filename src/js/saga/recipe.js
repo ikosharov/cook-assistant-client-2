@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
 import { actions as recipesActions, actionTypes } from '../actions/recipe'
 import { actions as fetchingActions } from '../actions/fetching'
-import { loadRecipeDetails, editRecipeDetails } from '../data/api'
+import { loadRecipe, editRecipe } from '../data/api'
 
 const onFetchRecipe = function * (action) {
   const recipeId = action.payload
@@ -9,7 +9,7 @@ const onFetchRecipe = function * (action) {
   yield put(fetchingActions.FETCH_STARTED())
 
   try {
-    const recipe = yield call(loadRecipeDetails, recipeId)
+    const recipe = yield call(loadRecipe, recipeId)
     yield put(recipesActions.FETCH_RECIPE_SUCCESS({ payload: recipe }))
   } catch (error) {
     yield put(recipesActions.FETCH_RECIPE_FAILURE({ error }))
@@ -24,7 +24,7 @@ const onSaveRecipe = function * (action) {
   yield put(fetchingActions.FETCH_STARTED())
 
   try {
-    yield call(editRecipeDetails, recipeId, recipe)
+    yield call(editRecipe, recipeId, recipe)
     yield put(recipesActions.SAVE_RECIPE_SUCCESS({ payload: recipe }))
   } catch (error) {
     yield put(recipesActions.SAVE_RECIPE_FAILURE({ error }))

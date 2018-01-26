@@ -24,15 +24,16 @@ export function signIn(username, password) {
   return new Promise((resolve, reject) => {
     fetch(url, options).then((response) => {
       if (response.status !== 200) {
-        reject()
+        response.json().then(json => {
+          reject(json)
+        })
       } else {
-        response.json().then((json) => {
+        response.json().then(json => {
           resolve(json)
         })
       }
     }).catch(() => {
-      // network failure
-      reject()
+      reject('Network failure')
     })
   })
 }
@@ -56,15 +57,16 @@ export function signUp(username, password) {
   return new Promise((resolve, reject) => {
     fetch(url, options).then((response) => {
       if (response.status !== 200) {
-        reject()
+        response.json().then(json => {
+          reject(json)
+        })
       } else {
         response.json().then((json) => {
           resolve(json)
         })
       }
     }).catch(() => {
-      // network failure
-      reject()
+      reject('Network failure')
     })
   })
 }
@@ -127,7 +129,7 @@ export function loadAnyUserRecipes() {
   })
 }
 
-export function loadRecipeDetails(recipeId) {
+export function loadRecipe(recipeId) {
   let auth = store.getState().auth
 
   let url = `${API_URL}/recipes/${recipeId}`
@@ -182,7 +184,7 @@ export function deleteRecipe(recipeId) {
   })
 }
 
-export function editRecipeDetails(recipeId, recipe) {
+export function editRecipe(recipeId, recipe) {
   let auth = store.getState().auth
 
   let url = `${API_URL}/recipes/${recipeId}`
@@ -259,7 +261,7 @@ export function addRecipe(recipe) {
   })
 }
 
-export function createIngredient(recipeId, ingredient) {
+export function addIngredient(recipeId, ingredient) {
   let auth = store.getState().auth
 
   let url = `${API_URL}/recipes/${recipeId}/ingredients`
@@ -361,7 +363,7 @@ export function deleteIngredient(recipeId, ingredientId) {
   })
 }
 
-export function createStep(recipeId, step) {
+export function addStep(recipeId, step) {
   let auth = store.getState().auth
 
   let url = `${API_URL}/recipes/${recipeId}/steps`

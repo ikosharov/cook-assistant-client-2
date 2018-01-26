@@ -7,7 +7,9 @@ const actionTypes = {
   SIGN_UP: 'SIGN_UP',
   SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
   SIGN_UP_FAILURE: 'SIGN_UP_FAILURE',
-  SIGN_OUT: 'SIGN_OUT'
+  SIGN_OUT: 'SIGN_OUT',
+  USERNAME_CHANGE: 'USERNAME_CHANGE',
+  PASSWORD_CHANGE: 'PASSWORD_CHANGE'
 }
 
 const actions = createActions(actionTypes)

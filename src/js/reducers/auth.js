@@ -1,10 +1,11 @@
 import { actionTypes } from '../actions/auth'
 
 const initialState = {
-  id: null,
-  username: null,
-  token: null,
-  error: null
+  id: undefined,
+  username: undefined,
+  password: undefined,
+  token: undefined,
+  error: undefined
 }
 
 export default function auth(state = initialState, {type, payload, error}) {
@@ -23,6 +24,12 @@ export default function auth(state = initialState, {type, payload, error}) {
 
     case actionTypes.SIGN_OUT:
       return initialState
+
+    case actionTypes.USERNAME_CHANGE:
+      return { ...state, username: payload }
+
+    case actionTypes.PASSWORD_CHANGE:
+      return { ...state, password: payload }
 
     default:
       return state

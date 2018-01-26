@@ -14,7 +14,7 @@ const onSignIn = function * (action) {
     yield put(authActions.SIGN_IN_SUCCESS({ payload: { id, username, token } }))
     history.push('/recipes')
   } catch (error) {
-    yield put(authActions.SIGN_IN_FAILURE({ error }))
+    yield put(authActions.SIGN_IN_FAILURE({ error: error.message }))
   } finally {
     yield put(fetchingActions.FETCH_FINISHED())
   }
@@ -31,7 +31,7 @@ const onSignUp = function * (action) {
     yield put(authActions.SIGN_UP_SUCCESS({ payload: { id, username, token } }))
     history.push('/recipes')
   } catch (error) {
-    yield put(authActions.SIGN_UP_FAILURE({ error }))
+    yield put(authActions.SIGN_UP_FAILURE({ error: error.message }))
   } finally {
     yield put(fetchingActions.FETCH_FINISHED())
   }
