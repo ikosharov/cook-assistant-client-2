@@ -1,4 +1,5 @@
 import { actionTypes } from '../actions/recipe'
+import { actionTypes as imagesActionTypes } from '../actions/images'
 import { createSelector } from "reselect"
 
 const initialState = {
@@ -25,6 +26,13 @@ export default function recipes(state = initialState, {type, payload, error}) {
       let updatedRecipe = {...state.recipe}
       updatedRecipe[prop] = value
       return { recipe: updatedRecipe, error: initialState.error }
+
+    case imagesActionTypes.UPLOAD_IMAGE_SUCCESS:
+      const { imageId, recipeId } = payload
+      if (!recipeId)
+        return state
+      else
+        return { recipe: {...state.recipe, imageId }, error: state.error }
 
     default:
       return state

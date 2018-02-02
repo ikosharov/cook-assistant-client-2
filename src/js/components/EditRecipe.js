@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { actions as recipeActions } from '../actions/recipe'
+import { actions as imagesActions } from '../actions/images'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import autobind from 'react-autobind'
 import { getRecipe } from '../reducers/recipe'
 import Base64Image from './Base64Image'
+import { API_URL } from '../web.config'
 
 class EditRecipe extends Component {
   constructor (props) {
@@ -20,7 +22,7 @@ class EditRecipe extends Component {
   }
 
   render () {
-    const { SAVE_RECIPE, RECIPE_CHANGE, match, recipe = {} } = this.props
+    const { SAVE_RECIPE, RECIPE_CHANGE, UPLOAD_IMAGE, match, recipe = {} } = this.props
     const { recipeId } = match.params
 
     return (
@@ -33,11 +35,12 @@ class EditRecipe extends Component {
                    payload: { prop: 'title', value: e.target.value }
                  })} />
         </h3>
-        <Base64Image data={recipe.image} />
+        <img src={`${API_URL}/images/${recipe.imageId}`} />
+        {/*<Base64Image data={recipe.image} />*/}
         <input type="file"
                name="image"
-               onChange={(e) => RECIPE_CHANGE({
-                 payload: { prop: 'image', value: e.currentTarget.files[0] }
+               onChange={(e) => UPLOAD_IMAGE({
+                 payload: { image: e.currentTarget.files[0], recipeId }
                })} />
 
         <button onClick={() => SAVE_RECIPE({ payload: { recipeId, recipe } })}>Save</button>
@@ -51,6 +54,7 @@ export default withRouter(connect(
     recipe: getRecipe(state)
   }),
   dispatch => ({
-    ...bindActionCreators(recipeActions, dispatch)
+    ...bindActionCreators(recipeActions, dispatch),
+    ...bindActionCreators(imagesActions, dispatch)
   })
 )(EditRecipe))

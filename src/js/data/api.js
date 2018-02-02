@@ -6,19 +6,14 @@ import { API_URL } from './../web.config'
 import { store } from '../store'
 
 export function signIn(username, password) {
-  let credentials = {
-    username: username,
-    password: password
-  }
+  const url = `${API_URL}/signin`
 
-  let url = `${API_URL}/signin`
-
-  let options = {
+  const options = {
     "method": "POST",
     "headers": {
       "content-type": "application/json"
     },
-    "body": JSON.stringify(credentials)
+    "body": JSON.stringify({ username, password })
   }
 
   return new Promise((resolve, reject) => {
@@ -39,19 +34,14 @@ export function signIn(username, password) {
 }
 
 export function signUp(username, password) {
-  let credentials = {
-    username: username,
-    password: password
-  }
+  const url = `${API_URL}/signup`
 
-  let url = `${API_URL}/signup`
-
-  let options = {
+  const options = {
     "method": "POST",
     "headers": {
       "content-type": "application/json"
     },
-    "body": JSON.stringify(credentials)
+    "body": JSON.stringify({ username, password })
   }
 
   return new Promise((resolve, reject) => {
@@ -72,11 +62,11 @@ export function signUp(username, password) {
 }
 
 export function loadCurrentUserRecipes() {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes?user=current`
+  const url = `${API_URL}/recipes?user=current`
 
-  let options = {
+  const options = {
     "method": "GET",
     "headers": {
       "content-type": "application/json",
@@ -101,11 +91,11 @@ export function loadCurrentUserRecipes() {
 }
 
 export function loadAnyUserRecipes() {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes?visibility=public`
+  const url = `${API_URL}/recipes?visibility=public`
 
-  let options = {
+  const options = {
     "method": "GET",
     "headers": {
       "content-type": "application/json",
@@ -130,11 +120,11 @@ export function loadAnyUserRecipes() {
 }
 
 export function loadRecipe(recipeId) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}`
+  const url = `${API_URL}/recipes/${recipeId}`
 
-  let options = {
+  const options = {
     "method": "GET",
     "headers": {
       "content-type": "application/json",
@@ -159,11 +149,11 @@ export function loadRecipe(recipeId) {
 }
 
 export function deleteRecipe(recipeId) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}`
+  const url = `${API_URL}/recipes/${recipeId}`
 
-  let options = {
+  const options = {
     "method": "DELETE",
     "headers": {
       "Authorization": "JWT " + auth.token
@@ -185,31 +175,16 @@ export function deleteRecipe(recipeId) {
 }
 
 export function editRecipe(recipeId, recipe) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}`
+  const url = `${API_URL}/recipes/${recipeId}`
 
-  // strip ingredients and steps to exceeding max field size (2mb)
-  delete recipe.ingredients
-  delete recipe.steps
-
-  // make sure you're not sending image as base64 string
-  if (typeof recipe.image === 'string') {
-    delete recipe.image
-  }
-
-  let form = new FormData()
-  form.append("data", JSON.stringify(recipe))
-  if (recipe.image) {
-    form.append("image", recipe.image)
-  }
-
-  let options = {
+  const options = {
     "method": "PUT",
     "headers": {
       "Authorization": "JWT " + auth.token
     },
-    "body": form
+    "body": JSON.stringify(recipe)
   }
 
   return new Promise((resolve, reject) => {
@@ -227,22 +202,16 @@ export function editRecipe(recipeId, recipe) {
 }
 
 export function addRecipe(recipe) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes`
+  const url = `${API_URL}/recipes`
 
-  let form = new FormData()
-  form.append("data", JSON.stringify(recipe))
-  if (recipe.image) {
-    form.append("image", recipe.image)
-  }
-
-  let options = {
+  const options = {
     "method": "POST",
     "headers": {
       "Authorization": "JWT " + auth.token
     },
-    "body": form
+    "body": JSON.stringify(recipe)
   }
 
   return new Promise((resolve, reject) => {
@@ -262,22 +231,16 @@ export function addRecipe(recipe) {
 }
 
 export function addIngredient(recipeId, ingredient) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}/ingredients`
+  const url = `${API_URL}/recipes/${recipeId}/ingredients`
 
-  let form = new FormData()
-  form.append("data", JSON.stringify(ingredient))
-  if (ingredient.image) {
-    form.append("image", ingredient.image)
-  }
-
-  let options = {
+  const options = {
     "method": "POST",
     "headers": {
       "Authorization": "JWT " + auth.token
     },
-    "body": form
+    "body": JSON.stringify(ingredient)
   }
 
   return new Promise((resolve, reject) => {
@@ -298,26 +261,16 @@ export function addIngredient(recipeId, ingredient) {
 }
 
 export function editIngredient(recipeId, ingredient) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}/ingredients/${ingredient._id}`
+  const url = `${API_URL}/recipes/${recipeId}/ingredients/${ingredient._id}`
 
-  if (typeof ingredient.image === 'string') {
-    delete ingredient.image
-  }
-
-  let form = new FormData()
-  form.append("data", JSON.stringify(ingredient))
-  if (ingredient.image) {
-    form.append("image", ingredient.image)
-  }
-
-  let options = {
+  const options = {
     "method": "PUT",
     "headers": {
       "Authorization": "JWT " + auth.token
     },
-    "body": form
+    "body": JSON.stringify(ingredient)
   }
 
   return new Promise((resolve, reject) => {
@@ -337,11 +290,11 @@ export function editIngredient(recipeId, ingredient) {
 }
 
 export function deleteIngredient(recipeId, ingredientId) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}/ingredients/${ingredientId}`
+  const url = `${API_URL}/recipes/${recipeId}/ingredients/${ingredientId}`
 
-  let options = {
+  const options = {
     "method": "DELETE",
     "headers": {
       "Authorization": "JWT " + auth.token
@@ -364,22 +317,16 @@ export function deleteIngredient(recipeId, ingredientId) {
 }
 
 export function addStep(recipeId, step) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}/steps`
+  const url = `${API_URL}/recipes/${recipeId}/steps`
 
-  let form = new FormData()
-  form.append("data", JSON.stringify(step))
-  if (step.image) {
-    form.append("image", step.image)
-  }
-
-  let options = {
+  const options = {
     "method": "POST",
     "headers": {
       "Authorization": "JWT " + auth.token
     },
-    "body": form
+    "body": JSON.stringify(step)
   }
 
   return new Promise((resolve, reject) => {
@@ -399,26 +346,16 @@ export function addStep(recipeId, step) {
 }
 
 export function editStep(recipeId, step) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}/steps/${step._id}`
+  const url = `${API_URL}/recipes/${recipeId}/steps/${step._id}`
 
-  if (typeof step.image === 'string') {
-    delete step.image
-  }
-
-  let form = new FormData()
-  form.append("data", JSON.stringify(step))
-  if (step.image) {
-    form.append("image", step.image)
-  }
-
-  let options = {
+  const options = {
     "method": "PUT",
     "headers": {
       "Authorization": "JWT " + auth.token
     },
-    "body": form
+    "body": JSON.stringify(step)
   }
 
   return new Promise((resolve, reject) => {
@@ -438,11 +375,11 @@ export function editStep(recipeId, step) {
 }
 
 export function deleteStep(recipeId, stepId) {
-  let auth = store.getState().auth
+  const auth = store.getState().auth
 
-  let url = `${API_URL}/recipes/${recipeId}/steps/${stepId}`
+  const url = `${API_URL}/recipes/${recipeId}/steps/${stepId}`
 
-  let options = {
+  const options = {
     "method": "DELETE",
     "headers": {
       "Authorization": "JWT " + auth.token
@@ -455,6 +392,38 @@ export function deleteStep(recipeId, stepId) {
         reject()
       } else {
         resolve()
+      }
+    }).catch(() => {
+      // network failure
+      reject()
+    })
+  })
+}
+
+export function uploadImage(image) {
+  const auth = store.getState().auth
+
+  const url = `${API_URL}/images`
+
+  let form = new FormData()
+  form.append("image", image)
+
+  let options = {
+    "method": "POST",
+    "headers": {
+      "Authorization": "JWT " + auth.token
+    },
+    "body": form
+  }
+
+  return new Promise((resolve, reject) => {
+    fetch(url, options).then((response) => {
+      if (response.status !== 200) {
+        reject()
+      } else {
+        response.json().then((json) => {
+          resolve(json)
+        })
       }
     }).catch(() => {
       // network failure

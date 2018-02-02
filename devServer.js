@@ -25,6 +25,6 @@ const dist = path.resolve("dist")
 app.use(express.static(dist))
 app.use((req, res) => res.sendFile(`${dist}/index.html`))
 
-app.listen(3000, function () {
-  console.log('listening on 3000')
+app.listen(9000, function () {
+  console.log('listening on 9000')
 })
