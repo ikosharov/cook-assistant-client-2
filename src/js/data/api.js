@@ -156,6 +156,7 @@ export function deleteRecipe(recipeId) {
   const options = {
     "method": "DELETE",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     }
   }
@@ -182,9 +183,10 @@ export function editRecipe(recipeId, recipe) {
   const options = {
     "method": "PUT",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     },
-    "body": JSON.stringify(recipe)
+    body: JSON.stringify(recipe)
   }
 
   return new Promise((resolve, reject) => {
@@ -209,6 +211,7 @@ export function addRecipe(recipe) {
   const options = {
     "method": "POST",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     },
     "body": JSON.stringify(recipe)
@@ -238,6 +241,7 @@ export function addIngredient(recipeId, ingredient) {
   const options = {
     "method": "POST",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     },
     "body": JSON.stringify(ingredient)
@@ -268,6 +272,7 @@ export function editIngredient(recipeId, ingredient) {
   const options = {
     "method": "PUT",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     },
     "body": JSON.stringify(ingredient)
@@ -297,6 +302,7 @@ export function deleteIngredient(recipeId, ingredientId) {
   const options = {
     "method": "DELETE",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     }
   }
@@ -324,6 +330,7 @@ export function addStep(recipeId, step) {
   const options = {
     "method": "POST",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     },
     "body": JSON.stringify(step)
@@ -353,6 +360,7 @@ export function editStep(recipeId, step) {
   const options = {
     "method": "PUT",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     },
     "body": JSON.stringify(step)
@@ -382,6 +390,7 @@ export function deleteStep(recipeId, stepId) {
   const options = {
     "method": "DELETE",
     "headers": {
+      "content-type": "application/json",
       "Authorization": "JWT " + auth.token
     }
   }
