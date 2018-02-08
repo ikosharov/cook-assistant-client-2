@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import autobind from 'react-autobind'
 import { getRecipe } from '../reducers/recipe'
-import Base64Image from './Base64Image'
 
 class CookRecipe extends Component {
   constructor (props) {
@@ -24,7 +23,6 @@ class CookRecipe extends Component {
     return (
       <div>
         <h3>Cook recipe - {recipe.title}</h3>
-        <Base64Image data={recipe.image} />
       </div>
     )
   }

@@ -6,8 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import autobind from 'react-autobind'
 import { getRecipe } from '../reducers/recipe'
-import Base64Image from './Base64Image'
-import { API_URL } from '../web.config'
+import ImageFromDb from './ImageFromDb'
 
 class EditRecipe extends Component {
   constructor (props) {
@@ -35,8 +34,7 @@ class EditRecipe extends Component {
                    payload: { prop: 'title', value: e.target.value }
                  })} />
         </h3>
-        <img src={`${API_URL}/images/${recipe.imageId}`} />
-        {/*<Base64Image data={recipe.image} />*/}
+        <ImageFromDb id={recipe.imageId} />
         <input type="file"
                name="image"
                onChange={(e) => UPLOAD_IMAGE({
